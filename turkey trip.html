@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rencana Perjalanan Turki 10 Hari</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <!-- Font Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 16px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .card.active {
+            border: 2px solid #1E3A8A;
+        }
+        .content-area {
+            display: none;
+            background-color: #f9fafb;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 8px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .icon-gold {
+            color: #F59E0B;
+        }
+        .detail-icon {
+            color: #1E3A8A;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-blue-900 mb-2">Rencana Perjalanan Turki 10 Hari (Self-Drive)</h1>
+            <p class="text-gray-600">Klik kartu hari untuk melihat detail itinerary dan penjelasan destinasi</p>
+        </header>
+
+        <!-- Cards Container -->
+        <section id="cards-container">
+            <!-- Cards will be rendered here by JavaScript -->
+        </section>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Data itinerary
+        const itineraryData = [
+            {
+                hari: "HARI 1",
+                destinasi: "Istanbul (Sirkeci)",
+                fase: "Istanbul Klasik",
+                pagiSiang: "Kedatangan di Bandara IST. Transfer ke hotel. Check-in.",
+                soreMalam: "Kunjungi Hagia Sophia & Masjid Biru.",
+                transportasi: "Publik/Taksi",
+                akomodasi: "Butik Hotel (Sirkeci)",
+                penjelasan: "Pusat sejarah & budaya, jembatan Eropa-Asia. Fokus pada situs Bizantium dan Ottoman.",
+                ikon: "castle"
+            },
+            {
+                hari: "HARI 2",
+                destinasi: "Istanbul (Sultanahmet)",
+                fase: "Istanbul Klasik",
+                pagiSiang: "Kunjungi Istana Topkapi dan Basilica Cistern.",
+                soreMalam: "Pelayaran Bosphorus Cruise. Belanja di Grand Bazaar.",
+                transportasi: "Jalan Kaki/Tram",
+                akomodasi: "Butik Hotel (Sirkeci)",
+                penjelasan: "Eksplorasi jantung kota tua, tempat Kaisar dan Sultan memerintah selama ribuan tahun.",
+                ikon: "landmark"
+            },
+            {
+                hari: "HARI 3",
+                destinasi: "Bursa",
+                fase: "Drive ke Bursa",
+                pagiSiang: "Check-out. Ambil Mobil Sewa di IST. Drive ke Bursa (4-5 jam).",
+                soreMalam: "Ulu Cami (Masjid Besar).",
+                transportasi: "Mobil Sewa",
+                akomodasi: "Hotel Bursa City Center",
+                penjelasan: "Bekas ibu kota pertama Ottoman. Pintu gerbang ke pegunungan dan kaya akan arsitektur Islam kuno.",
+                ikon: "car"
+            },
+            {
+                hari: "HARI 4",
+                destinasi: "Uludağ (Bursa)",
+                fase: "Winter Ski Day",
+                pagiSiang: "Drive ke Gunung Uludağ (perlu ban salju).",
+                soreMalam: "Aktivitas Salju: Ski/Snowboarding. Nikmati İskender Kebab.",
+                transportasi: "Mobil Sewa",
+                akomodasi: "Hotel Bursa City Center",
+                penjelasan: "Resor ski utama di Turki yang ideal untuk aktivitas salju di bulan Desember. Salju biasanya terjamin di puncak.",
+                ikon: "mountain"
+            },
+            {
+                hari: "HARI 5",
+                destinasi: "Perjalanan ke Cappadocia",
+                fase: "Long Road Trip",
+                pagiSiang: "Long Drive dari Bursa ke Göreme (9-10 jam).",
+                soreMalam: "Tiba di Göreme. Check-in Cave Hotel.",
+                transportasi: "Mobil Sewa",
+                akomodasi: "Cave Hotel (Göreme)",
+                penjelasan: "Hari perjalanan terpanjang. Persiapan untuk memasuki lanskap unik di Anatolia Tengah.",
+                ikon: "map"
+            },
+            {
+                hari: "HARI 6",
+                destinasi: "Cappadocia (Göreme)",
+                fase: "Keajaiban Alam",
+                pagiSiang: "Opsional Balon Udara Panas.",
+                soreMalam: "Self-Drive Green Tour: Kota Bawah Tanah & Lembah Ihlara.",
+                transportasi: "Mobil Sewa",
+                akomodasi: "Cave Hotel (Göreme)",
+                penjelasan: "Keajaiban geologi. Terkenal dengan 'cerobong peri' dan pengalaman balon udara di atas salju.",
+                ikon: "air-balloon"
+            },
+            {
+                hari: "HARI 7",
+                destinasi: "Cappadocia (Göreme)",
+                fase: "Keajaiban Alam",
+                pagiSiang: "Self-Drive Red Tour: Goreme Open Air Museum, Lembah Ikonik.",
+                soreMalam: "Sunset Point. Hamam lokal.",
+                transportasi: "Mobil Sewa",
+                akomodasi: "Cave Hotel (Göreme)",
+                penjelasan: "Eksplorasi gereja-gereja kuno yang diukir di batu dan pemandangan lembah-lembah vulkanik yang indah.",
+                ikon: "camera"
+            },
+            {
+                hari: "HARI 8",
+                destinasi: "Istanbul (Taksim)",
+                fase: "Drive & Istanbul Modern",
+                pagiSiang: "Long Drive dari Cappadocia ke IST. Kembalikan mobil sewa di IST.",
+                soreMalam: "Naik Taksi/Havaist ke Taksim. Check-in hotel.",
+                transportasi: "Mobil Sewa (Drop-off di IST)",
+                akomodasi: "Hotel (Taksim/Beyoğlu)",
+                penjelasan: "Kembali ke Istanbul. Fokus pada kawasan modern, pusat perbelanjaan, dan istana bergaya Eropa.",
+                ikon: "plane-takeoff"
+            },
+            {
+                hari: "HARI 9",
+                destinasi: "Istanbul (Taksim)",
+                fase: "Istanbul Modern",
+                pagiSiang: "Kunjungi Istana Dolmabahçe. Eksplorasi Jalan Istiklal & Taksim Square.",
+                soreMalam: "Kunjungi Galata Tower.",
+                transportasi: "Publik/Taksi",
+                akomodasi: "Hotel (Taksim/Beyoğlu)",
+                penjelasan: "Distrik Beyoğlu yang hidup, menampilkan arsitektur Abad ke-19 dan kehidupan malam yang semarak, kontras dengan Istanbul yang bersejarah.",
+                ikon: "shopping-bag"
+            },
+            {
+                hari: "HARI 10",
+                destinasi: "Istanbul",
+                fase: "Keberangkatan",
+                pagiSiang: "Check-out. Transfer ke Bandara IST.",
+                soreMalam: "N/A",
+                transportasi: "Havaist/Taksi",
+                akomodasi: "Pesawat",
+                penjelasan: "Hari terakhir dan keberangkatan. Pastikan semua logistik telah disiapkan sebelumnya.",
+                ikon: "home"
+            }
+        ];
+
+        // Function to render cards
+        function renderCards() {
+            const container = document.getElementById('cards-container');
+            itineraryData.forEach((item, index) => {
+                const cardId = `day${index + 1}`;
+                const cardHTML = `
+                    <div class="card" onclick="toggleCard(this, '${cardId}')">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <i data-lucide="${item.ikon}" class="icon-gold mr-3" size="32"></i>
+                                <div>
+                                    <h3 class="text-xl font-semibold text-blue-900">${item.hari}</h3>
+                                    <p class="text-gray-600">${item.destinasi} - ${item.fase}</p>
+                                </div>
+                            </div>
+                            <i data-lucide="chevron-down" class="icon-gold"></i>
+                        </div>
+                    </div>
+                    <div id="${cardId}" class="content-area">
+                        <h4 class="text-lg font-semibold text-blue-900 mb-4">Jadwal Harian Lengkap</h4>
+                        <div class="mb-4">
+                            <div class="flex items-center mb-2">
+                                <i data-lucide="sunrise" class="detail-icon" size="20"></i>
+                                <strong>Aktivitas Pagi/Siang:</strong> ${item.pagiSiang}
+                            </div>
+                            <div class="flex items-center mb-2">
+                                <i data-lucide="moon" class="detail-icon" size="20"></i>
+                                <strong>Aktivitas Sore/Malam:</strong> ${item.soreMalam}
+                            </div>
+                            <div class="flex items-center mb-2">
+                                <i data-lucide="bus" class="detail-icon" size="20"></i>
+                                <strong>Transportasi Utama:</strong> ${item.transportasi}
+                            </div>
+                            <div class="flex items-center mb-2">
+                                <i data-lucide="bed" class="detail-icon" size="20"></i>
+                                <strong>Akomodasi:</strong> ${item.akomodasi}
+                            </div>
+                        </div>
+                        <h4 class="text-lg font-semibold text-blue-900 mt-6 mb-4">Penjelasan Destinasi</h4>
+                        <p class="text-gray-700">${item.penjelasan}</p>
+                    </div>
+                `;
+                container.innerHTML += cardHTML;
+            });
+        }
+
+        // Function to toggle card content
+        function toggleCard(cardElement, contentId) {
+            const content = document.getElementById(contentId);
+            const allContents = document.querySelectorAll('.content-area');
+            const allCards = document.querySelectorAll('.card');
+
+            // Close all other contents and remove active class
+            allContents.forEach(c => c.style.display = 'none');
+            allCards.forEach(c => c.classList.remove('active'));
+
+            // Toggle current one
+            if (content.style.display === 'block') {
+                content.style.display = 'none';
+                cardElement.classList.remove('active');
+            } else {
+                content.style.display = 'block';
+                cardElement.classList.add('active');
+            }
+
+            // Re-render Lucide icons
+            lucide.createIcons();
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCards();
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
